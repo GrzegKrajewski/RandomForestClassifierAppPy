@@ -1,15 +1,16 @@
 import numpy as np
 import pandas as pd
-from sklearn.model_selection import train_test_split
+import os
+import pickle
 import PyQt5 as pq
+from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
+from datetime import datetime
+from pathlib import Path
 
 dict_column_names={'Age': "age", "AnnualIncome": "annual_income", "FamilyMembers":"family_members", "ChronicDiseases" :"is_chronic_diseases",
                    "Employment Type_Private Sector/Self Employed": "is_self_employed", "GraduateOrNot_Yes": "is_graduated",
                    "FrequentFlyer_Yes":"is_frequent_flyer", "EverTravelledAbroad_Yes": "is_ever_travelled_abroad"}
-
-import os
-from pathlib import Path
 
 file_name="X.csv"
 X=pd.read_csv(file_name)
@@ -22,8 +23,6 @@ X=X.rename(columns=dict_column_names)
 class_rf=RandomForestClassifier(class_weight='balanced')
 class_rf.fit(X,y)
 
-import pickle
-from datetime import datetime
 current_path = os.path.abspath(os.path.dirname(__file__))
 
 path_to_save='model_RF.pickle'
